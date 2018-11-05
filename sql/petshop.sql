@@ -19,18 +19,15 @@ INSERT INTO `account` (`username`, `password`, `email`, `xm`, `address`) VALUES
 	('123', '111', '1109478911@qq.com', '1111', '12132'),
 	('221123', '123', '123@123.com', '123', '12'),
 
-
-
 -- 导出  过程 mpet.addCart 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addCart`(IN `in_itemid` vaRCHAR(50), IN `in_qty` INT)
 BEGIN
-	
 	set @maxid=0;
 	set @orderdate='';
 	set @count=0;
 	set @qty=0;
-	
+
 	select max(orderid),orderdate into @maxid,@orderdate from orders; 
 	
 	if  @orderdate is null then -- 代表订单还可以添加新商品
@@ -48,8 +45,7 @@ BEGIN
 			insert into cart(orderid,itemid,quantity)
 			values( @maxid ,in_itemid,in_qty);
 			commit;
-			
-			
+
 	   else
 	   		select quantity into @qty
 	   		from cart
@@ -57,29 +53,23 @@ BEGIN
 	   		      itemid=in_itemid;
 				
 				call updateCart(@maxid,in_itemid,@qty+in_qty);	
-		
-			
+
 		end if;
-		
-		
+
 	else -- 日期为空的时候
-		
 			select max(orderid)+1 into @maxid from orders; 
 			
 			insert into orders(orderid)
 			values( @maxid );
-			
+
 			insert into cart(orderid,itemid,quantity)
 			values( @maxid ,in_itemid,in_qty);
 		
 	end if;
 	call queryCart(@maxid);
-	
-	
-	
+
 END//
 DELIMITER ;
-
 
 -- 导出  表 mpet.banner 结构
 CREATE TABLE IF NOT EXISTS `banner` (
@@ -96,8 +86,6 @@ INSERT INTO `banner` (`favcategory`, `bannername`) VALUES
 	('DOGS', '<image src="../images/banner_dogs.gif">'),
 	('FISH', '<image src="../images/banner_fish.gif">'),
 	('REPTILES', '<image src="../images/banner_reptiles.gif">');
-
-
 
 -- 导出  表 mpet.cart 结构
 CREATE TABLE IF NOT EXISTS `cart` (
@@ -208,7 +196,6 @@ INSERT INTO `cart` (`orderid`, `itemid`, `quantity`) VALUES
 	(1041, 'EST_17', 2),
 	(1041, 'EST_4', 5);
 
-
 -- 导出  表 mpet.category 结构
 CREATE TABLE IF NOT EXISTS `category` (
   `catid` varchar(10) NOT NULL,
@@ -225,7 +212,6 @@ INSERT INTO `category` (`catid`, `name`, `descn`) VALUES
 	('FISH', '鱼类', '<image src="${ppath}/static/images/fish_icon.gif"><font size="5" color="blue"> Fish</font>'),
 	('REPTILES', '爬行动物类', '<image src="${ppath}/static/images/reptiles_icon.gif"><font size="5" color="blue"> Reptiles</font>');
 
-
 -- 导出  过程 mpet.delCart 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delCart`(IN `in_orderid` INT, IN `in_itemid` vARCHAR(50))
@@ -240,7 +226,6 @@ BEGIN
 END//
 DELIMITER ;
 
-
 -- 导出  函数 mpet.func_get_split_string 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_split_string`(`f_string` varchar(1000), `f_delimiter` varchar(5), `f_order` int) RETURNS varchar(255) CHARSET utf8
@@ -252,7 +237,6 @@ BEGIN
 END//
 DELIMITER ;
 
-
 -- 导出  函数 mpet.func_get_split_string_total 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_split_string_total`(`f_string` varchar(1000), `f_delimiter` varchar(5)
@@ -261,7 +245,6 @@ BEGIN
   return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')));
 END//
 DELIMITER ;
-
 
 -- 导出  表 mpet.item 结构
 CREATE TABLE IF NOT EXISTS `item` (
@@ -310,8 +293,6 @@ INSERT INTO `item` (`itemid`, `productid`, `listprice`, `unitcost`, `status`, `a
 	('EST_7', 'K9-BD-01', 18.50, 12.00, 'P', 'Female Puppy', NULL, NULL, NULL, NULL),
 	('EST_8', 'K9-PO-02', 18.50, 12.00, 'P', 'Male Puppy', NULL, NULL, NULL, NULL),
 	('EST_9', 'K9-DL-01', 18.50, 12.00, 'P', 'Spotless Male Puppy', NULL, NULL, NULL, NULL);
-
-
 
 -- 导出  表 mpet.orders 结构
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -366,7 +347,6 @@ INSERT INTO `orders` (`orderid`, `orderdate`, `totalprice`) VALUES
 	(1040, '2018-12-10', 145.00),
 	(1041, '2018-12-10', 298.00);
 
-
 -- 导出  表 mpet.product 结构
 CREATE TABLE IF NOT EXISTS `product` (
   `productid` varchar(10) NOT NULL,
@@ -398,7 +378,6 @@ INSERT INTO `product` (`productid`, `catid`, `name`, `descn`, `pic`) VALUES
 	('RP-LI-02', 'REPTILES', 'Iguana', 'Friendly green friend', 'lizard2.gif'),
 	('RP-SN-01', 'REPTILES', 'Rattlesnake', 'Doubles as a watch dog', 'lizard3.gif');
 
-
 -- 导出  表 mpet.profile 结构
 CREATE TABLE IF NOT EXISTS `profile` (
   `username` varchar(80) NOT NULL,
@@ -429,13 +408,11 @@ INSERT INTO `profile` (`username`, `lang`, `catid`) VALUES
 	('wxc', 'english', 'REPTILES'),
 	('yyyy', 'english', 'DOGS');
 
-
 -- 导出  过程 mpet.pro_addCart 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pro_addCart`(IN `in_itemid` varchar(16), IN `in_quantity` int
 )
 begin
-
 	set @old_orderid = 0;# 旧的订单时间
 	set @old_date = null;# 订单的时间
 	set @old_itemid = null;# 订单号 为了判断新加入cart的宠物是否已经存在
@@ -481,7 +458,6 @@ begin
 	call pro_queryCart(@old_orderid);
 end//
 DELIMITER ;
-
 
 -- 导出  过程 mpet.pro_delCart 结构
 DELIMITER //
@@ -544,13 +520,11 @@ BEGIN
 END//
 DELIMITER ;
 
-
 -- 导出  过程 mpet.queryPet 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `queryPet`(IN `in_category` CHAR(10), IN `in_pro` CHAR(10), IN `in_item` CHAR(10))
 BEGIN
 
-	
 	/*
 		in_category:宠物种类，为了查询product表
 		in_pro:宠物产品,为了查询item表
@@ -574,23 +548,17 @@ BEGIN
 		       p.catid=c.catid and
 		       i.productid=p.productid;
 		      
-	
-		      
+
 	elseif in_item!='' then	      
 			select * 
 			from 	item i,product p
 			where  i.itemid=in_item and
 			       i.productid=p.productid;
-			      
-		
-	end if;
 
-	
-
+		end if;
 
 END//
 DELIMITER ;
-
 
 -- 导出  过程 mpet.sp_print_result 结构
 DELIMITER //
@@ -613,7 +581,6 @@ BEGIN
   
 END//
 DELIMITER ;
-
 
 -- 导出  过程 mpet.updateCartB 结构
 DELIMITER //
@@ -648,7 +615,6 @@ BEGIN
 END//
 DELIMITER ;
 
-
 -- 导出  过程 mpet.updateOrders 结构
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateOrders`(IN `in_orderid` INT)
@@ -659,4 +625,3 @@ BEGIN
 	commit;
 END//
 DELIMITER ;
-
