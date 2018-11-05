@@ -1,5 +1,5 @@
 -- 导出 mpet 的数据库结构
-CREATE DATABASE IF NOT EXISTS `mpet` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `mpet`
 USE `mpet`;
 
 -- 导出  表 mpet.account 结构
@@ -13,12 +13,12 @@ CREATE TABLE IF NOT EXISTS `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; InnoDB free: 6144 kB';
 
 -- 正在导出表  mpet.account 的数据：~36 rows (大约)
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+
 INSERT INTO `account` (`username`, `password`, `email`, `xm`, `address`) VALUES
 	('0000', '0000', '1109478911@qq.com', '0000', '0000'),
 	('123', '111', '1109478911@qq.com', '1111', '12132'),
 	('221123', '123', '123@123.com', '123', '12'),
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+
 
 
 -- 导出  过程 mpet.addCart 结构
@@ -90,14 +90,13 @@ CREATE TABLE IF NOT EXISTS `banner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 6144 kB';
 
 -- 正在导出表  mpet.banner 的数据：~5 rows (大约)
-/*!40000 ALTER TABLE `banner` DISABLE KEYS */;
 INSERT INTO `banner` (`favcategory`, `bannername`) VALUES
 	('BIRDS', '<image src="../images/banner_birds.gif">'),
 	('CATS', '<image src="../images/banner_cats.gif">'),
 	('DOGS', '<image src="../images/banner_dogs.gif">'),
 	('FISH', '<image src="../images/banner_fish.gif">'),
 	('REPTILES', '<image src="../images/banner_reptiles.gif">');
-/*!40000 ALTER TABLE `banner` ENABLE KEYS */;
+
 
 
 -- 导出  表 mpet.cart 结构
@@ -113,7 +112,6 @@ CREATE TABLE IF NOT EXISTS `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; InnoDB free: 6144 kB; (`itemid`) REFER';
 
 -- 正在导出表  mpet.cart 的数据：~94 rows (大约)
-/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
 INSERT INTO `cart` (`orderid`, `itemid`, `quantity`) VALUES
 	(1, 'EST_4', 3),
 	(1000, 'EST_4', 3),
@@ -209,7 +207,6 @@ INSERT INTO `cart` (`orderid`, `itemid`, `quantity`) VALUES
 	(1041, 'EST_12', 1),
 	(1041, 'EST_17', 2),
 	(1041, 'EST_4', 5);
-/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 
 -- 导出  表 mpet.category 结构
@@ -221,14 +218,12 @@ CREATE TABLE IF NOT EXISTS `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; InnoDB free: 6144 kB';
 
 -- 正在导出表  mpet.category 的数据：~5 rows (大约)
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`catid`, `name`, `descn`) VALUES
 	('BIRDS', '鸟类', '<image src="${ppath}/static/images/birds_icon.gif"><font size="5" color="blue"> Birds</font>'),
 	('CATS', '猫类', '<image src="${ppath}/static/images/cats_icon.gif"><font size="5" color="blue"> Cats</font>'),
 	('DOGS', '狗类', '<image src="${ppath}/static/images/dogs_icon.gif"><font size="5" color="blue"> Dogs</font>'),
 	('FISH', '鱼类', '<image src="${ppath}/static/images/fish_icon.gif"><font size="5" color="blue"> Fish</font>'),
 	('REPTILES', '爬行动物类', '<image src="${ppath}/static/images/reptiles_icon.gif"><font size="5" color="blue"> Reptiles</font>');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 
 -- 导出  过程 mpet.delCart 结构
@@ -263,7 +258,6 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` FUNCTION `func_get_split_string_total`(`f_string` varchar(1000), `f_delimiter` varchar(5)
 ) RETURNS int(11)
 BEGIN
-  -- Get the total number of given string.
   return 1+(length(f_string) - length(replace(f_string,f_delimiter,'')));
 END//
 DELIMITER ;
@@ -287,7 +281,6 @@ CREATE TABLE IF NOT EXISTS `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; (`productid`) REFER `jpetstore/product';
 
 -- 正在导出表  mpet.item 的数据：~28 rows (大约)
-/*!40000 ALTER TABLE `item` DISABLE KEYS */;
 INSERT INTO `item` (`itemid`, `productid`, `listprice`, `unitcost`, `status`, `attr1`, `attr2`, `attr3`, `attr4`, `attr5`) VALUES
 	('EST_1', 'FI-SW-01', 16.50, 10.00, 'P', 'Large', NULL, NULL, NULL, NULL),
 	('EST_10', 'K9-DL-01', 18.50, 12.00, 'P', 'Spotted Adult Female', NULL, NULL, NULL, NULL),
@@ -317,7 +310,7 @@ INSERT INTO `item` (`itemid`, `productid`, `listprice`, `unitcost`, `status`, `a
 	('EST_7', 'K9-BD-01', 18.50, 12.00, 'P', 'Female Puppy', NULL, NULL, NULL, NULL),
 	('EST_8', 'K9-PO-02', 18.50, 12.00, 'P', 'Male Puppy', NULL, NULL, NULL, NULL),
 	('EST_9', 'K9-DL-01', 18.50, 12.00, 'P', 'Spotless Male Puppy', NULL, NULL, NULL, NULL);
-/*!40000 ALTER TABLE `item` ENABLE KEYS */;
+
 
 
 -- 导出  表 mpet.orders 结构
@@ -329,7 +322,6 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; InnoDB free: 6144 kB; (`linenum` `orde';
 
 -- 正在导出表  mpet.orders 的数据：~42 rows (大约)
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`orderid`, `orderdate`, `totalprice`) VALUES
 	(1, NULL, 0.00),
 	(1000, '2018-09-13', 0.00),
@@ -373,7 +365,6 @@ INSERT INTO `orders` (`orderid`, `orderdate`, `totalprice`) VALUES
 	(1039, '2018-12-10', 18.00),
 	(1040, '2018-12-10', 145.00),
 	(1041, '2018-12-10', 298.00);
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 
 -- 导出  表 mpet.product 结构
@@ -389,7 +380,6 @@ CREATE TABLE IF NOT EXISTS `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; (`category`) REFER `jpetstore/category';
 
 -- 正在导出表  mpet.product 的数据：~16 rows (大约)
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`productid`, `catid`, `name`, `descn`, `pic`) VALUES
 	('AV-CB-01', 'BIRDS', 'Amazon Parrot', 'Great companion for up to 75 years', 'bird4.gif'),
 	('AV-SB-02', 'BIRDS', 'Finch', 'Great stress reliever', 'bird1.gif'),
@@ -407,7 +397,6 @@ INSERT INTO `product` (`productid`, `catid`, `name`, `descn`, `pic`) VALUES
 	('K9-RT-02', 'DOGS', 'Labrador Retriever', 'Great hunting dog', 'dog5.gif'),
 	('RP-LI-02', 'REPTILES', 'Iguana', 'Friendly green friend', 'lizard2.gif'),
 	('RP-SN-01', 'REPTILES', 'Rattlesnake', 'Doubles as a watch dog', 'lizard3.gif');
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 
 -- 导出  表 mpet.profile 结构
@@ -422,7 +411,6 @@ CREATE TABLE IF NOT EXISTS `profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='InnoDB free: 7168 kB; InnoDB free: 6144 kB; (`username`) REF';
 
 -- 正在导出表  mpet.profile 的数据：~16 rows (大约)
-/*!40000 ALTER TABLE `profile` DISABLE KEYS */;
 INSERT INTO `profile` (`username`, `lang`, `catid`) VALUES
 	('0000', '中文', 'REPTILES'),
 	('44443', 'english', 'BIRDS'),
@@ -440,7 +428,6 @@ INSERT INTO `profile` (`username`, `lang`, `catid`) VALUES
 	('www', 'english', 'FISH'),
 	('wxc', 'english', 'REPTILES'),
 	('yyyy', 'english', 'DOGS');
-/*!40000 ALTER TABLE `profile` ENABLE KEYS */;
 
 
 -- 导出  过程 mpet.pro_addCart 结构
